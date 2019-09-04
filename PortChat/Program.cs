@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using PortChat.Presenter;
+using PortChat.Service;
+using PortChat.View;
 
 namespace PortChat
 {
@@ -16,7 +19,9 @@ namespace PortChat
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+
+            var presenter = new ChatPresenter(new ChatForm(), new ChatService());
+            presenter.Run();
         }
     }
 }
