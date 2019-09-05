@@ -1,7 +1,7 @@
 ﻿using System;
 using PortChat.View;
 using PortChat.Service;
-
+using System.IO.Ports;
 
 namespace PortChat.Presenter
 {
@@ -20,14 +20,27 @@ namespace PortChat.Presenter
             view.Presenter = this;
         }
 
+        internal void comPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
+        {
+            _view.AddMessage("[Rx] " + _service.RecieveData());
+        }
+
         public void Run()
         {
+            _view.ports = _service.GetPortsNames();
+            _view.baudrates = _service.GetBaudrates();
             _view.Show();
         }
 
         public void SendMessage()
         {
-            this._view.AddMessage(this._view.message);
+            _service.WriteData(_view.message);
+            _view.AddMessage("[Tx] " + _view.message);
+        }
+
+        internal void OpenConnection()
+        {
+            _service.OpenPort(_view.port, _view.baudrate, 8);
         }
     }
 }

@@ -50,6 +50,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service\ChatService.cs" />
+    <Compile Include="Service\CommuncationService.cs" />
     <Compile Include="View\ChatForm.cs">
       <SubType>Form</SubType>
     </Compile>

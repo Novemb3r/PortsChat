@@ -22,12 +22,27 @@ namespace PortChat.View
 
         public string message
         {
-            get { return this.TextBox.Text; }
-            set { this.TextBox.Text = value; }
+            get { return TextBox.Text; }
+            set { TextBox.Text = value; }
         }
 
-        public void AddMessage(string message) {
-            this.ChatBox.AppendText("\n" + message);
+        public string[] ports
+        {
+            set { PortDropDown.Items.AddRange(value); }
+        }
+
+        public string[] baudrates
+        {
+            set { BaudrateDropDown.Items.AddRange(value); }
+        }
+
+        public int baudrate => int.Parse(BaudrateDropDown.SelectedItem.ToString());
+
+        public string port => PortDropDown.SelectedItem.ToString();
+
+        public void AddMessage(string message)
+        {
+            this.ChatBox.AppendText(message + "\n");
         }
 
         public void Show()
@@ -39,6 +54,11 @@ namespace PortChat.View
         {
             this.Presenter.SendMessage();
             this.TextBox.Clear();
+        }
+
+        private void ConnectButton_Click(object sender, EventArgs e)
+        {
+            this.Presenter.OpenConnection();
         }
     }
 }

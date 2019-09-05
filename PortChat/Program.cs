@@ -20,7 +20,10 @@ namespace PortChat
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            var presenter = new ChatPresenter(new ChatForm(), new ChatService());
+            var service = new ChatService();
+            var presenter = new ChatPresenter(new ChatForm(), service);
+
+            service.InitHook(presenter);
             presenter.Run();
         }
     }
