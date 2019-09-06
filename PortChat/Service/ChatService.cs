@@ -5,12 +5,19 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO.Ports;
 using PortChat.Presenter;
+using PortChat.Service.Sender;
+using PortChat.Service.Reciever;
+using static PortChat.Constants;
 
 namespace PortChat.Service
 {
     public class ChatService
     {
+
         private SerialPort comPort = new SerialPort();
+
+        private SenderPool senderPool = new SenderPool();
+        private RecieverPool recieverPool = new RecieverPool();
 
         //maybe eto pizdec
         public void InitHook(ChatPresenter chatPresenter)
@@ -18,42 +25,32 @@ namespace PortChat.Service
             comPort.DataReceived += new SerialDataReceivedEventHandler(chatPresenter.comPort_DataReceived);
         }
 
-        public void WriteData(string msg)
+        public void WriteData(TransmissionMode mode, string msg)
         {
-            if (!(comPort.IsOpen == true)) comPort.Open();
-            byte[] ModeByte0 = { 0 };
-            comPort.Write(ModeByte0, 0, 1);
-
-            comPort.Encoding = Encoding.UTF8;
-            comPort.Write(msg);
-
+            senderPool.get(mode).SendMessage(comPort, msg);
         }
 
-        public string RecieveData()
+        public string RecieveData(TransmissionMode mode)
         {
-            comPort.Encoding = Encoding.UTF8;
-            return comPort.ReadExisting().Substring(1); // substring to remove '\0' from message. Otherwise nothing will be shown
+            return recieverPool.get(mode).RecieveMessage(comPort);
         }
 
-        public bool OpenPort(string port, int baudrate, int dataBits = 8)
+        public void OpenPort(string port, int baudrate, Parity parity, int dataBits, StopBits stopBits)
         {
+            if (comPort.IsOpen) comPort.Close();
 
-            if (comPort.IsOpen == true) comPort.Close();
+            comPort.BaudRate = baudrate;
+            comPort.DataBits = dataBits;
+            comPort.Parity = parity;
+            comPort.StopBits = stopBits;
+            comPort.PortName = port;
 
-            comPort.BaudRate = baudrate;    //BaudRate
-            comPort.DataBits = dataBits;    //DataBits
-                                            //comPort.StopBits = (StopBits)Enum.Parse(typeof(StopBits), _stopBits);    //StopBits
-                                            // comPort.Parity = (Parity)Enum.Parse(typeof(Parity), 2); //(Parity)Enum.Parse(typeof(Parity), _parity);    //Parity
-            comPort.PortName = port;   //PortName
             comPort.Open();
-
-
-            return true;
         }
 
-        public string[] GetPortsNames() => SerialPort.GetPortNames();
-
-        public string[] GetBaudrates() => new string[] { "300", "600", "1200", "2400", "9600", "14400", "19200", "38400", "57600", "115200", "Enough for demo, lol" };
-
+        public void ClosePort()
+        {
+            if (comPort.IsOpen) comPort.Close();
+        }
     }
 }

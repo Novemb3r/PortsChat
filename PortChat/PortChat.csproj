@@ -35,6 +35,9 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -46,11 +49,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constants.cs" />
     <Compile Include="Presenter\ChatPresenter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service\ChatService.cs" />
-    <Compile Include="Service\CommuncationService.cs" />
+    <Compile Include="Service\Reciever\AsciiReciever.cs" />
+    <Compile Include="Service\Reciever\IReciever.cs" />
+    <Compile Include="Service\Reciever\RecieverPool.cs" />
+    <Compile Include="Service\Sender\AsciiSender.cs" />
+    <Compile Include="Service\Sender\ISender.cs" />
+    <Compile Include="Service\Sender\SenderPool.cs" />
     <Compile Include="View\ChatForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -70,6 +79,7 @@
     <EmbeddedResource Include="View\ChatForm.resx">
       <DependentUpon>ChatForm.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
