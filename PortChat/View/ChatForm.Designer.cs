@@ -34,6 +34,7 @@
             this.SendButton = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.button2 = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.StopBitsDropDown = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -51,7 +52,6 @@
             this.ValidationDropDown = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.ModeDropDown = new System.Windows.Forms.ComboBox();
-            this.button2 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -62,21 +62,21 @@
             this.TextBox.Enabled = false;
             this.TextBox.Location = new System.Drawing.Point(6, 400);
             this.TextBox.Name = "TextBox";
-            this.TextBox.Size = new System.Drawing.Size(458, 20);
+            this.TextBox.Size = new System.Drawing.Size(477, 20);
             this.TextBox.TabIndex = 0;
             // 
             // ChatBox
             // 
-            this.ChatBox.Location = new System.Drawing.Point(6, 19);
+            this.ChatBox.Location = new System.Drawing.Point(6, 16);
             this.ChatBox.Name = "ChatBox";
-            this.ChatBox.Size = new System.Drawing.Size(540, 375);
+            this.ChatBox.Size = new System.Drawing.Size(558, 375);
             this.ChatBox.TabIndex = 1;
             this.ChatBox.Text = "";
             // 
             // SendButton
             // 
             this.SendButton.Enabled = false;
-            this.SendButton.Location = new System.Drawing.Point(471, 398);
+            this.SendButton.Location = new System.Drawing.Point(489, 397);
             this.SendButton.Name = "SendButton";
             this.SendButton.Size = new System.Drawing.Size(75, 23);
             this.SendButton.TabIndex = 2;
@@ -89,9 +89,9 @@
             this.groupBox1.Controls.Add(this.ChatBox);
             this.groupBox1.Controls.Add(this.SendButton);
             this.groupBox1.Controls.Add(this.TextBox);
-            this.groupBox1.Location = new System.Drawing.Point(236, 12);
+            this.groupBox1.Location = new System.Drawing.Point(218, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(552, 426);
+            this.groupBox1.Size = new System.Drawing.Size(570, 426);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Chat";
@@ -115,6 +115,17 @@
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Connection Settings";
+            // 
+            // button2
+            // 
+            this.button2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button2.BackgroundImage")));
+            this.button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button2.Location = new System.Drawing.Point(133, 38);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(21, 21);
+            this.button2.TabIndex = 9;
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.Button2_Click);
             // 
             // label5
             // 
@@ -267,17 +278,6 @@
             this.ModeDropDown.Name = "ModeDropDown";
             this.ModeDropDown.Size = new System.Drawing.Size(121, 21);
             this.ModeDropDown.TabIndex = 3;
-            // 
-            // button2
-            // 
-            this.button2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button2.BackgroundImage")));
-            this.button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button2.Location = new System.Drawing.Point(133, 37);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(25, 23);
-            this.button2.TabIndex = 9;
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.Button2_Click);
             // 
             // ChatForm
             // 

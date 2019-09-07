@@ -30,8 +30,12 @@ namespace PortChat.Service
             senderPool.get(mode).SendMessage(comPort, msg);
         }
 
-        public string RecieveData(TransmissionMode mode)
+        public string RecieveData()
         {
+            byte[] ModeByte = new byte[1];
+            comPort.Read(ModeByte, 0, 1);
+            TransmissionMode mode = (TransmissionMode)Enum.Parse(typeof(TransmissionMode), ModeByte[0].ToString());
+
             return recieverPool.get(mode).RecieveMessage(comPort);
         }
 

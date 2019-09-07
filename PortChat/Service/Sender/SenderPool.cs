@@ -7,13 +7,20 @@ namespace PortChat.Service.Sender
     {
 
         AsciiSender asciiSender = new AsciiSender();
+        HexSender hexSender = new HexSender();
+
         public ISender get(TransmissionMode mode)
         {
-            if (mode == TransmissionMode.ASCII) {
-                return asciiSender;
-            }
+            switch (mode)
+            {
+                case TransmissionMode.ASCII:
+                    return asciiSender;
+                case TransmissionMode.HEX:
+                    return hexSender;
 
-            return asciiSender;
+                default:
+                    throw new PoolException("No Sender for providen mode found");
+            }
         }
     }
 }

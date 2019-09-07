@@ -1,5 +1,4 @@
-﻿using System;
-using PortChat.View;
+﻿using PortChat.View;
 using PortChat.Service;
 using System.IO.Ports;
 
@@ -22,7 +21,7 @@ namespace PortChat.Presenter
 
         internal void comPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
-            _view.AddMessage("[Rx] " + _service.RecieveData(_view.mode));
+            _view.AddMessage("[Rx] " + _service.RecieveData());
         }
 
         public void Run()

@@ -2,7 +2,6 @@
 using System.Windows.Forms;
 using PortChat.Presenter;
 using PortChat.Service;
-using PortChat.Service.Sender;
 using PortChat.View;
 
 namespace PortChat

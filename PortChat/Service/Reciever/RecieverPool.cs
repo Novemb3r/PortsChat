@@ -6,14 +6,20 @@ namespace PortChat.Service.Reciever
     {
 
         AsciiReciever asciiReciever = new AsciiReciever();
+        HexReciever hexReciever = new HexReciever();
+
         public IReciever get(TransmissionMode mode)
         {
-            if (mode == TransmissionMode.ASCII)
+            switch (mode)
             {
-                return asciiReciever;
-            }
+                case TransmissionMode.ASCII:
+                    return asciiReciever;
+                case TransmissionMode.HEX:
+                    return hexReciever;
 
-            return asciiReciever;
+                default:
+                    throw new PoolException("No Reciever for providen mode found");
+            }
         }
     }
 }
