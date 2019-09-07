@@ -65,6 +65,12 @@ namespace PortChat.View
             get { return ValidationDropDown.Items.Cast<string>().Select(s => s.ToString()).ToArray(); }
         }
 
+        public string[] logLevels
+        {
+            set { LogLevelDropDown.Items.Clear(); LogLevelDropDown.Items.AddRange(value); }
+            get { return LogLevelDropDown.Items.Cast<string>().Select(s => s.ToString()).ToArray(); }
+        }
+
         public int baudrate => int.Parse(BaudrateDropDown.SelectedItem.ToString());
         public StopBits stopBits => (StopBits)Enum.Parse(typeof(StopBits), StopBitsDropDown.Text);
         public int dataBits => int.Parse(DataBitsDropDown.SelectedItem.ToString());
@@ -72,6 +78,7 @@ namespace PortChat.View
         public string port => PortDropDown.SelectedItem.ToString();
         public TransmissionMode mode => (TransmissionMode)Enum.Parse(typeof(TransmissionMode), ModeDropDown.Text);
         public string validation => ValidationDropDown.SelectedItem.ToString();
+        public LogLevel log => (LogLevel)Enum.Parse(typeof(LogLevel), LogLevelDropDown.Text);
 
         public void AddMessage(string message)
         {
@@ -118,6 +125,11 @@ namespace PortChat.View
             if (modes.Length > 0)
             {
                 ModeDropDown.SelectedIndex = 0;
+            }
+
+            if (logLevels.Length > 0)
+            {
+                LogLevelDropDown.SelectedIndex = 0;
             }
         }
 

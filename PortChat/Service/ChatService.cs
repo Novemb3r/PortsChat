@@ -8,6 +8,7 @@ using PortChat.Presenter;
 using PortChat.Service.Sender;
 using PortChat.Service.Reciever;
 using static PortChat.Constants;
+using PortChat.Logger;
 
 namespace PortChat.Service
 {
@@ -19,7 +20,14 @@ namespace PortChat.Service
         private SenderPool senderPool = new SenderPool();
         private RecieverPool recieverPool = new RecieverPool();
 
-        //maybe eto pizdec
+        private readonly ChatLogger _logger;
+
+        public ChatService(ChatLogger logger)
+        {
+            _logger = logger;
+        }
+
+        //looks dirty
         public void InitHook(ChatPresenter chatPresenter)
         {
             comPort.DataReceived += new SerialDataReceivedEventHandler(chatPresenter.comPort_DataReceived);
@@ -28,14 +36,13 @@ namespace PortChat.Service
         public void WriteData(TransmissionMode mode, string msg)
         {
             senderPool.get(mode).SendMessage(comPort, msg);
+            _logger.Log(LogLevel.Debug, mode.ToString() + " data sent to port " + comPort.PortName);
         }
 
         public string RecieveData()
         {
-            byte[] ModeByte = new byte[1];
-            comPort.Read(ModeByte, 0, 1);
-            TransmissionMode mode = (TransmissionMode)Enum.Parse(typeof(TransmissionMode), ModeByte[0].ToString());
-
+            TransmissionMode mode = GetTransmissionMode();
+            _logger.Log(LogLevel.Debug, mode.ToString() + " data recieved");
             return recieverPool.get(mode).RecieveMessage(comPort);
         }
 
@@ -55,6 +62,13 @@ namespace PortChat.Service
         public void ClosePort()
         {
             if (comPort.IsOpen) comPort.Close();
+        }
+
+        private TransmissionMode GetTransmissionMode()
+        {
+            byte[] ModeByte = new byte[1];
+            comPort.Read(ModeByte, 0, 1);
+            return (TransmissionMode)Enum.Parse(typeof(TransmissionMode), ModeByte[0].ToString());
         }
     }
 }

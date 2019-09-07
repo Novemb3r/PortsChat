@@ -52,15 +52,19 @@
             this.ValidationDropDown = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.ModeDropDown = new System.Windows.Forms.ComboBox();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.LogLevelDropDown = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // TextBox
             // 
             this.TextBox.Enabled = false;
-            this.TextBox.Location = new System.Drawing.Point(6, 400);
+            this.TextBox.Location = new System.Drawing.Point(6, 467);
             this.TextBox.Name = "TextBox";
             this.TextBox.Size = new System.Drawing.Size(477, 20);
             this.TextBox.TabIndex = 0;
@@ -69,14 +73,14 @@
             // 
             this.ChatBox.Location = new System.Drawing.Point(6, 16);
             this.ChatBox.Name = "ChatBox";
-            this.ChatBox.Size = new System.Drawing.Size(558, 375);
+            this.ChatBox.Size = new System.Drawing.Size(558, 442);
             this.ChatBox.TabIndex = 1;
             this.ChatBox.Text = "";
             // 
             // SendButton
             // 
             this.SendButton.Enabled = false;
-            this.SendButton.Location = new System.Drawing.Point(489, 397);
+            this.SendButton.Location = new System.Drawing.Point(489, 464);
             this.SendButton.Name = "SendButton";
             this.SendButton.Size = new System.Drawing.Size(75, 23);
             this.SendButton.TabIndex = 2;
@@ -87,11 +91,11 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.ChatBox);
-            this.groupBox1.Controls.Add(this.SendButton);
             this.groupBox1.Controls.Add(this.TextBox);
+            this.groupBox1.Controls.Add(this.SendButton);
             this.groupBox1.Location = new System.Drawing.Point(218, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(570, 426);
+            this.groupBox1.Size = new System.Drawing.Size(570, 493);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Chat";
@@ -214,7 +218,7 @@
             // 
             // ConnectButton
             // 
-            this.ConnectButton.Location = new System.Drawing.Point(12, 409);
+            this.ConnectButton.Location = new System.Drawing.Point(12, 482);
             this.ConnectButton.Name = "ConnectButton";
             this.ConnectButton.Size = new System.Drawing.Size(95, 23);
             this.ConnectButton.TabIndex = 5;
@@ -224,7 +228,7 @@
             // 
             // DisconnectButton
             // 
-            this.DisconnectButton.Location = new System.Drawing.Point(117, 409);
+            this.DisconnectButton.Location = new System.Drawing.Point(113, 482);
             this.DisconnectButton.Name = "DisconnectButton";
             this.DisconnectButton.Size = new System.Drawing.Size(95, 23);
             this.DisconnectButton.TabIndex = 6;
@@ -240,7 +244,7 @@
             this.groupBox3.Controls.Add(this.ModeDropDown);
             this.groupBox3.Location = new System.Drawing.Point(12, 289);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(200, 114);
+            this.groupBox3.Size = new System.Drawing.Size(166, 114);
             this.groupBox3.TabIndex = 7;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Transmission Settings";
@@ -279,12 +283,41 @@
             this.ModeDropDown.Size = new System.Drawing.Size(121, 21);
             this.ModeDropDown.TabIndex = 3;
             // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.label8);
+            this.groupBox4.Controls.Add(this.LogLevelDropDown);
+            this.groupBox4.Location = new System.Drawing.Point(12, 410);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(166, 66);
+            this.groupBox4.TabIndex = 8;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Misc";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(6, 16);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(54, 13);
+            this.label8.TabIndex = 6;
+            this.label8.Text = "Log Level";
+            // 
+            // LogLevelDropDown
+            // 
+            this.LogLevelDropDown.FormattingEnabled = true;
+            this.LogLevelDropDown.Location = new System.Drawing.Point(6, 32);
+            this.LogLevelDropDown.Name = "LogLevelDropDown";
+            this.LogLevelDropDown.Size = new System.Drawing.Size(121, 21);
+            this.LogLevelDropDown.TabIndex = 5;
+            // 
             // ChatForm
             // 
             this.AcceptButton = this.SendButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(800, 526);
+            this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.DisconnectButton);
             this.Controls.Add(this.ConnectButton);
@@ -298,6 +331,8 @@
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -327,6 +362,9 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.ComboBox ValidationDropDown;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.ComboBox LogLevelDropDown;
     }
 }
 

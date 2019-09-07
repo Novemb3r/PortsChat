@@ -9,6 +9,8 @@ namespace PortChat
 
         public enum ValidationMode { None, LRC, CRC16, CRC32 }
 
+        public enum LogLevel { Trace, Debug, Warning, Error, Silent }
+
         public static string[] PortsNames = SerialPort.GetPortNames();
 
         public static string[] Baudrates = new string[] { "300", "600", "1200", "2400", "9600", "14400", "19200", "38400", "57600", "115200" };
@@ -22,6 +24,8 @@ namespace PortChat
         public static string[] TransmissionModesList => Enum.GetNames(typeof(TransmissionMode));
 
         public static string[] ValidationModesList => Enum.GetNames(typeof(ValidationMode));
+
+        public static string[] LogLevelsList => Enum.GetNames(typeof(LogLevel));
 
     }
 }
