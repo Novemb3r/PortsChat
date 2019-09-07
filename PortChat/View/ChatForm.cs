@@ -7,13 +7,12 @@ using static PortChat.Constants;
 
 namespace PortChat.View
 {
-    public partial class ChatForm : Form
+    public partial class ChatForm : Form, IView
     {
         public ChatForm()
         {
             InitializeComponent();
         }
-
         public Presenter.ChatPresenter Presenter
         { private get; set; }
 
@@ -78,7 +77,7 @@ namespace PortChat.View
         public string port => PortDropDown.SelectedItem.ToString();
         public TransmissionMode mode => (TransmissionMode)Enum.Parse(typeof(TransmissionMode), ModeDropDown.Text);
         public string validation => ValidationDropDown.SelectedItem.ToString();
-        public LogLevel log => (LogLevel)Enum.Parse(typeof(LogLevel), LogLevelDropDown.Text);
+        public LogLevel Log { get => (LogLevel)Enum.Parse(typeof(LogLevel), LogLevelDropDown.Text); }
 
         public void AddMessage(string message)
         {
@@ -129,7 +128,7 @@ namespace PortChat.View
 
             if (logLevels.Length > 0)
             {
-                LogLevelDropDown.SelectedIndex = 0;
+                LogLevelDropDown.SelectedIndex = logLevels.Length - 2;
             }
         }
 

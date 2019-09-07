@@ -2,10 +2,12 @@
 using PortChat.Service;
 using System.IO.Ports;
 using PortChat.Logger;
+using PortChat.Service.DTO;
+using static PortChat.Constants;
 
 namespace PortChat.Presenter
 {
-    public class ChatPresenter
+    public class ChatPresenter : IChatPresenter
     {
 
         private readonly ChatForm _view;
@@ -46,26 +48,34 @@ namespace PortChat.Presenter
         public void SendMessage()
         {
             _service.WriteData(_view.mode, _view.message);
-            _logger.Log(Constants.LogLevel.Trace, "Message sent via " + _view.port);
             _view.AddMessage("[Tx] " + _view.message);
         }
 
         public void RefreshPorts()
         {
-            _view.ports = Constants.PortsNames;
-            _logger.Log(Constants.LogLevel.Debug, "Port list refresed");
+            _view.ports = PortsNames;
+            _logger.Log(LogLevel.Debug, "Port list refresed");
         }
 
-        internal void OpenConnection()
+        public void OpenConnection()
         {
-            _service.OpenPort(_view.port, _view.baudrate, _view.parity, _view.dataBits, _view.stopBits);
-            _logger.Log(Constants.LogLevel.Debug, "Connection on " + _view.port + " opened");
+            try
+            {
+                _service.OpenConnection(new ConnectionDTO(_view.port, _view.baudrate, _view.parity, _view.dataBits, _view.stopBits));
+            }
+            catch (System.UnauthorizedAccessException e)
+            {
+                _logger.Log(LogLevel.Error, e.Message);
+                return;
+            }
+
+            _logger.Log(LogLevel.Debug, "Connection on " + _view.port + " opened");
             _view.EnableMessaging();
         }
 
-        internal void CloseConnection()
+        public void CloseConnection()
         {
-            _service.ClosePort();
+            _service.CloseConnection();
             _logger.Log(Constants.LogLevel.Debug, "Connection on " + _view.port + " closed");
             _view.DisableMessaging();
         }

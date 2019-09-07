@@ -21,8 +21,6 @@ namespace PortChat
             var view = new ChatForm();
             var logger = new ChatLogger(view);
             var service = new ChatService(logger);
-
-
             var presenter = new ChatPresenter(view, service, logger);
 
             service.InitHook(presenter);

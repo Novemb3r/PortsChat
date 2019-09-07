@@ -9,10 +9,11 @@ using PortChat.Service.Sender;
 using PortChat.Service.Reciever;
 using static PortChat.Constants;
 using PortChat.Logger;
+using PortChat.Service.DTO;
 
 namespace PortChat.Service
 {
-    public class ChatService
+    public class ChatService : IChatService
     {
 
         private SerialPort comPort = new SerialPort();
@@ -36,32 +37,35 @@ namespace PortChat.Service
         public void WriteData(TransmissionMode mode, string msg)
         {
             senderPool.get(mode).SendMessage(comPort, msg);
-            _logger.Log(LogLevel.Debug, mode.ToString() + " data sent to port " + comPort.PortName);
+            _logger.Log(LogLevel.Trace, mode.ToString() + " data sent to port " + comPort.PortName);
         }
 
         public string RecieveData()
         {
             TransmissionMode mode = GetTransmissionMode();
-            _logger.Log(LogLevel.Debug, mode.ToString() + " data recieved");
+            _logger.Log(LogLevel.Trace, mode.ToString() + " data recieved");
             return recieverPool.get(mode).RecieveMessage(comPort);
         }
 
-        public void OpenPort(string port, int baudrate, Parity parity, int dataBits, StopBits stopBits)
+        public void OpenConnection(ConnectionDTO connection)
         {
             if (comPort.IsOpen) comPort.Close();
 
-            comPort.BaudRate = baudrate;
-            comPort.DataBits = dataBits;
-            comPort.Parity = parity;
-            comPort.StopBits = stopBits;
-            comPort.PortName = port;
+            comPort.BaudRate = connection._baudrate;
+            comPort.DataBits = connection._dataBits;
+            comPort.Parity = connection._parity;
+            comPort.StopBits = connection._stopBits;
+            comPort.PortName = connection._port;
 
             comPort.Open();
+
+            _logger.Log(LogLevel.Trace, comPort.PortName + " opened");
         }
 
-        public void ClosePort()
+        public void CloseConnection()
         {
             if (comPort.IsOpen) comPort.Close();
+            _logger.Log(LogLevel.Trace, comPort.PortName + " closed");
         }
 
         private TransmissionMode GetTransmissionMode()

@@ -8,20 +8,20 @@ using static PortChat.Constants;
 
 namespace PortChat.Logger
 {
-    public class ChatLogger
+    public class ChatLogger : ILogger
     {
 
-        private readonly ChatForm _view;
-        public ChatLogger(ChatForm view)
+        private readonly IView _view;
+        public ChatLogger(IView view)
         {
             _view = view;
         }
 
-        public void Log(LogLevel type, string msg)
+        public void Log(LogLevel logLevel, string msg)
         {
-            if (_view.log <= type)
+            if (_view.Log <= logLevel)
             {
-                _view.AddMessage("[" + type.ToString() + "] " + msg);
+                _view.AddMessage("[" + logLevel.ToString() + "] " + msg);
             }
         }
     }
