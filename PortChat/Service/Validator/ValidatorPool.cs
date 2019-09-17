@@ -4,14 +4,14 @@ namespace PortChat.Service.Validator
 {
     public class ValidatorPool
     {
-        NoneValidator noneValidator = new NoneValidator();
+        SimpleValidator simpleValidator = new SimpleValidator();
 
         public IValidator get(ValidationMode validationMode)
         {
             switch (validationMode)
             {
-                case ValidationMode.None:
-                    return noneValidator;
+                case ValidationMode.Simple:
+                    return simpleValidator;
                 default:
                     throw new PoolException("No validation for providen rule found");
             }

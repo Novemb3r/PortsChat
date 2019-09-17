@@ -6,18 +6,21 @@ namespace PortChat.Service.Sender
 {
     class AsciiSender : SenderAbstract
     {
-        public override void SendMessage(SerialPort port, string msg)
+        public override void SendMessage(SerialPort port, string msg, ValidationMode validationMode)
         {
-            SendModeByte(port);
+            SendModeBytes(port, validationMode);
 
             port.Encoding = Encoding.ASCII;
             port.Write(msg);
         }
 
-        protected override void SendModeByte(SerialPort port)
+        protected override void SendModeBytes(SerialPort port, ValidationMode validationMode)
         {
-            byte[] ModeByte = { (byte)TransmissionMode.ASCII };
-            port.Write(ModeByte, 0, 1);
+            byte[] TModeByte = { (byte)TransmissionMode.ASCII };
+            port.Write(TModeByte, 0, 1);
+
+            byte[] VModeByte = { (byte)validationMode };
+            port.Write(VModeByte, 0, 1);
         }
     }
 }

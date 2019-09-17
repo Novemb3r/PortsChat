@@ -70,7 +70,7 @@
     <Compile Include="Service\Sender\SenderAbstract.cs" />
     <Compile Include="Service\Sender\SenderPool.cs" />
     <Compile Include="Service\Validator\IValidator.cs" />
-    <Compile Include="Service\Validator\NoneValidator.cs" />
+    <Compile Include="Service\Validator\SimpleValidator.cs" />
     <Compile Include="Service\Validator\ValidatorPool.cs" />
     <Compile Include="View\ChatForm.cs">
       <SubType>Form</SubType>

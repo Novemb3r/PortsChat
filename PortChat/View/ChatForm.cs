@@ -76,8 +76,8 @@ namespace PortChat.View
         public Parity parity => (Parity)Enum.Parse(typeof(Parity), ParityDropDown.Text);
         public string port => PortDropDown.SelectedItem.ToString();
         public TransmissionMode mode => (TransmissionMode)Enum.Parse(typeof(TransmissionMode), ModeDropDown.Text);
-        public string validation => ValidationDropDown.SelectedItem.ToString();
-        public LogLevel Log { get => (LogLevel)Enum.Parse(typeof(LogLevel), LogLevelDropDown.Text); }
+        public ValidationMode validation => (ValidationMode)Enum.Parse(typeof(ValidationMode), ValidationDropDown.Text);
+        public LogLevel Log => LogLevel.Error; //(LogLevel)Enum.Parse(typeof(LogLevel), LogLevelDropDown.Text);
 
         public void AddMessage(string message)
         {

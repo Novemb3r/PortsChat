@@ -10,6 +10,7 @@ using PortChat.Service.Reciever;
 using static PortChat.Constants;
 using PortChat.Logger;
 using PortChat.Service.DTO;
+using PortChat.Service.Validator;
 
 namespace PortChat.Service
 {
@@ -20,6 +21,7 @@ namespace PortChat.Service
 
         private SenderPool senderPool = new SenderPool();
         private RecieverPool recieverPool = new RecieverPool();
+        private ValidatorPool validatorPool = new ValidatorPool();
 
         private readonly ChatLogger _logger;
 
@@ -34,17 +36,33 @@ namespace PortChat.Service
             comPort.DataReceived += new SerialDataReceivedEventHandler(chatPresenter.comPort_DataReceived);
         }
 
-        public void WriteData(TransmissionMode mode, string msg)
+        public void WriteData(TransmissionMode transmissionMode, ValidationMode validationMode, string msg)
         {
-            senderPool.get(mode).SendMessage(comPort, msg);
-            _logger.Log(LogLevel.Trace, mode.ToString() + " data sent to port " + comPort.PortName);
+            var checkSum = validatorPool.get(validationMode).calculate(msg);
+
+            senderPool.get(transmissionMode).SendMessage(comPort,  msg + checkSum, validationMode);
+            _logger.Log(LogLevel.Trace, transmissionMode.ToString() + " data sent to port " + comPort.PortName);
         }
 
         public string RecieveData()
         {
-            TransmissionMode mode = GetTransmissionMode();
-            _logger.Log(LogLevel.Trace, mode.ToString() + " data recieved");
-            return recieverPool.get(mode).RecieveMessage(comPort);
+            TransmissionMode TMode = GetTransmissionMode();
+            ValidationMode VMode = GetValidationMode();
+            _logger.Log(LogLevel.Trace, TMode.ToString() + " data recieved, with " + VMode + " validation");
+
+            string data = recieverPool.get(TMode).RecieveMessage(comPort);
+
+            bool isValid = validatorPool.get(VMode).check(data);
+
+            if (!isValid)
+            {
+                _logger.Log(LogLevel.Error, "Recieved broken message: " + data);
+            }
+            else
+            {
+                _logger.Log(LogLevel.Trace, "Message valid");
+            }
+            return validatorPool.get(VMode).removeCheckSum(data);
         }
 
         public void OpenConnection(ConnectionDTO connection)
@@ -73,6 +91,13 @@ namespace PortChat.Service
             byte[] ModeByte = new byte[1];
             comPort.Read(ModeByte, 0, 1);
             return (TransmissionMode)Enum.Parse(typeof(TransmissionMode), ModeByte[0].ToString());
+        }
+
+        private ValidationMode GetValidationMode()
+        {
+            byte[] ModeByte = new byte[1];
+            comPort.Read(ModeByte, 0, 1);
+            return (ValidationMode)Enum.Parse(typeof(ValidationMode), ModeByte[0].ToString());
         }
     }
 }

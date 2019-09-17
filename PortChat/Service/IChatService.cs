@@ -9,7 +9,7 @@ namespace PortChat.Service
         void InitHook(ChatPresenter chatPresenter);
         string RecieveData();
 
-        void WriteData(TransmissionMode mode, string msg);
+        void WriteData(TransmissionMode transmissionMode, ValidationMode validationMode, string msg);
 
         void OpenConnection(ConnectionDTO connection);
 

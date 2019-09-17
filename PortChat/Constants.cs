@@ -7,7 +7,7 @@ namespace PortChat
     {
         public enum TransmissionMode { ASCII, HEX }
 
-        public enum ValidationMode { None, LRC, CRC16, CRC32 }
+        public enum ValidationMode { Simple, LRC, CRC16, CRC32 }
 
         public enum LogLevel { Trace, Debug, Warning, Error, Silent }
 

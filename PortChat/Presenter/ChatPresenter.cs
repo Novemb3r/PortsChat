@@ -47,7 +47,7 @@ namespace PortChat.Presenter
 
         public void SendMessage()
         {
-            _service.WriteData(_view.mode, _view.message);
+            _service.WriteData(_view.mode,_view.validation , _view.message);
             _view.AddMessage("[Tx] " + _view.message);
         }
 
