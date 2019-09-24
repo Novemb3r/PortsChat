@@ -1,19 +1,21 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace PortChat.Service.Validator
 {
-    public class SimpleValidator : IValidator
+    public class LRCValidator : IValidator
     {
-
         public string calculate(string message)
         {
-            byte res = 0x00;
+            byte res = 0;
             foreach (byte ch in Encoding.ASCII.GetBytes(message))
             {
-                res ^= ch;
+                res += ch;
             }
+
             return Encoding.ASCII.GetString(new byte[1] { res });
         }
 

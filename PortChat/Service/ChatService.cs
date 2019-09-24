@@ -39,7 +39,7 @@ namespace PortChat.Service
         public void WriteData(TransmissionMode transmissionMode, ValidationMode validationMode, string msg)
         {
             var checkSum = validatorPool.get(validationMode).calculate(msg);
-
+            _logger.Log(LogLevel.Trace, "Checksum: " + checkSum.ToString());
             senderPool.get(transmissionMode).SendMessage(comPort,  msg + checkSum, validationMode);
             _logger.Log(LogLevel.Trace, transmissionMode.ToString() + " data sent to port " + comPort.PortName);
         }
